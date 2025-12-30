@@ -9,8 +9,8 @@ package main
 import (
 	"os"
 
+	"github.com/kowabunga-cloud/common/klog"
 	"github.com/kowabunga-cloud/kiwi/internal/kiwi"
-	"github.com/kowabunga-cloud/kowabunga/kowabunga/common/klog"
 )
 
 func main() {
