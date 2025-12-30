@@ -2,7 +2,7 @@
 # Apache License, Version 2.0 (see LICENSE or https://www.apache.org/licenses/LICENSE-2.0.txt)
 # SPDX-License-Identifier: Apache-2.0
 
-VERSION=0.63.3
+VERSION=0.64.0
 DIST=noble
 
 #export GOOS=linux
