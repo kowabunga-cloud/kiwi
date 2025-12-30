@@ -10,31 +10,25 @@
 
 # About
 
-This is **Kowabunga**, a complete infrastructure automation suite to orchestrate virtual resources management automation on privately-owned commodity hardware.
+This is **Kiwi** Kowabunga agent, for SD-WAN nodes. It provides various network services like routing, firewall, DHCP, DNS, VPN, IPSec peering (with active-passive failover).
 
 [![License: Apache License, Version 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://spdx.org/licenses/Apache-2.0.html)
-[![Build Status](https://github.com/kowabunga-cloud/kowabunga/actions/workflows/ci.yml/badge.svg)](https://github.com/kowabunga-cloud/kowabunga/actions/workflows/ci.yml)
-[![GoSec Status](https://github.com/kowabunga-cloud/kowabunga/actions/workflows/sec.yml/badge.svg)](https://github.com/kowabunga-cloud/kowabunga/actions/workflows/sec.yml)
-[![GovulnCheck Status](https://github.com/kowabunga-cloud/kowabunga/actions/workflows/vuln.yml/badge.svg)](https://github.com/kowabunga-cloud/kowabunga/actions/workflows/vuln.yml)
-[![Coverage Status](https://codecov.io/gh/kowabunga-cloud/kowabunga/branch/master/graph/badge.svg)](https://codecov.io/gh/kowabunga-cloud/kowabunga)
-[![GoReport](https://goreportcard.com/badge/github.com/kowabunga-cloud/kowabunga)](https://goreportcard.com/report/github.com/kowabunga-cloud/kowabunga)
-[![GoCode](https://img.shields.io/badge/go.dev-pkg-007d9c.svg?style=flat)](https://pkg.go.dev/github.com/kowabunga-cloud/kowabunga)
-[![time tracker](https://wakatime.com/badge/github/kowabunga-cloud/kowabunga.svg)](https://wakatime.com/badge/github/kowabunga-cloud/kowabunga)
-![Code lines](https://sloc.xyz/github/kowabunga-cloud/kowabunga/?category=code)
-![Comments](https://sloc.xyz/github/kowabunga-cloud/kowabunga/?category=comments)
-![COCOMO](https://sloc.xyz/github/kowabunga-cloud/kowabunga/?category=cocomo&avg-wage=100000)
-
-This repository features the server-side bits of Kowabunga, including:
-
-- **Kahuna**, the orchestration system, which remotely controls every resource and maintains ecosystem consistent. Gateway to the Kowabunga REST API.
-- **Kiwi** agent, for SD-WAN nodes. It provides various network services like routing, firewall, DHCP, DNS, VPN, IPSec peering (with active-passive failover).
-- **Kaktus** agent, for HCI nodes. It supports virtual computing hypervisor with distributed storage services.
+[![Build Status](https://github.com/kowabunga-cloud/kiwi/actions/workflows/ci.yml/badge.svg)](https://github.com/kowabunga-cloud/kiwi/actions/workflows/ci.yml)
+[![GoSec Status](https://github.com/kowabunga-cloud/kiwi/actions/workflows/sec.yml/badge.svg)](https://github.com/kowabunga-cloud/kiwi/actions/workflows/sec.yml)
+[![GovulnCheck Status](https://github.com/kowabunga-cloud/kiwi/actions/workflows/vuln.yml/badge.svg)](https://github.com/kowabunga-cloud/kiwi/actions/workflows/vuln.yml)
+[![Coverage Status](https://codecov.io/gh/kowabunga-cloud/kiwi/branch/master/graph/badge.svg)](https://codecov.io/gh/kowabunga-cloud/kiwi)
+[![GoReport](https://goreportcard.com/badge/github.com/kowabunga-cloud/kiwi)](https://goreportcard.com/report/github.com/kowabunga-cloud/kiwi)
+[![GoCode](https://img.shields.io/badge/go.dev-pkg-007d9c.svg?style=flat)](https://pkg.go.dev/github.com/kowabunga-cloud/kiwi)
+[![time tracker](https://wakatime.com/badge/github/kowabunga-cloud/kiwi.svg)](https://wakatime.com/badge/github/kowabunga-cloud/kiwi)
+![Code lines](https://sloc.xyz/github/kowabunga-cloud/kiwi/?category=code)
+![Comments](https://sloc.xyz/github/kowabunga-cloud/kiwi/?category=comments)
+![COCOMO](https://sloc.xyz/github/kowabunga-cloud/kiwiw/?category=cocomo&avg-wage=100000)
 
 ## Current Releases
 
 | Project            | Release Badge                                                                                       |
 |--------------------|-----------------------------------------------------------------------------------------------------|
-| **Kowabunga**           | [![Kowabunga Release](https://img.shields.io/github/v/release/kowabunga-cloud/kowabunga)](https://github.com/kowabunga-cloud/kowabunga/releases) |
+| **Kiwi**           | [![Kiwi Release](https://img.shields.io/github/v/release/kowabunga-cloud/kiwi)](https://github.com/kowabunga-cloud/kiwi/releases) |
 
 ## License
 
