@@ -73,8 +73,12 @@ tests: ; $(info $(M) tes suite…) @
 	$Q go test ./... -count=1 -coverprofile=coverage.txt
 
 .PHONY: deb
-deb: ; $(info $(M) building debian package…) @ ## Build debian package
+deb: ; $(info $(M) building debian package…) @
 	$Q VERSION=$(VERSION) DIST=$(DIST) ./debian.sh
+
+.PHONY: apk
+apk: ; $(info $(M) building Alpine package…) @
+	$Q VERSION=$(VERSION) ./alpine.sh
 
 .PHONY: get-lint
 get-lint: ; $(info $(M) downloading go-lint…) @
