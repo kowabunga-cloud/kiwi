@@ -49,6 +49,14 @@ $ git config --global init.templateDir ~/.git-template
 $ pre-commit init-templatedir ~/.git-template
 ```
 
+## Versioning
+
+Versioning generally follows [Semantic Versioning](https://semver.org/).
+
+## Authors
+
+Kiwi is maintained by [Kowabunga maintainers](https://github.com/orgs/kowabunga-cloud/teams/maintainers).
+
 ## License
 
 Licensed under [Apache License, Version 2.0](https://opensource.org/license/apache-2-0), see [`LICENSE`](LICENSE).
