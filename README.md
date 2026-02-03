@@ -30,6 +30,25 @@ This is **Kiwi** Kowabunga agent, for SD-WAN nodes. It provides various network 
 |--------------------|-----------------------------------------------------------------------------------------------------|
 | **Kiwi**           | [![Kiwi Release](https://img.shields.io/github/v/release/kowabunga-cloud/kiwi)](https://github.com/kowabunga-cloud/kiwi/releases) |
 
+## Development Guidelines
+
+Kiwi development relies on [pre-commit hooks](http://www.pre-commit.com/) to ensure proper commits.
+
+Follow installation instructions [here](https://pre-commit.com/#install).
+
+Local per-repository installation can be done through:
+
+```sh
+$ pre-commit install --install-hooks
+```
+
+And system-wide global installation, through:
+
+```sh
+$ git config --global init.templateDir ~/.git-template
+$ pre-commit init-templatedir ~/.git-template
+```
+
 ## License
 
 Licensed under [Apache License, Version 2.0](https://opensource.org/license/apache-2-0), see [`LICENSE`](LICENSE).
