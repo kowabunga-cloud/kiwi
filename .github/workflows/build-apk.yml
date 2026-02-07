@@ -1,0 +1,125 @@
+name: Build Alpine APK
+
+on: workflow_dispatch
+
+# on:
+#   push:
+#     branches: [ main ]               # run on pushes to main
+#     tags: [ "v*" ]                   # also run on version tags
+#   pull_request:
+#     branches: [ main ]
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest            # we use Ubuntu and run Alpine in Docker
+    permissions:
+      contents: read                  # needed for checkout
+      packages: write                 # needed for uploading artifacts
+
+    steps:
+      # --------------------------------------------------------------
+      # 1️⃣ Checkout the repository
+      # --------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0               # needed for proper version/tag detection
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.25
+      - name: Build
+        run: make all PROD=1
+
+      # --------------------------------------------------------------
+      # 2️⃣ Set up Docker (Ubuntu already has Docker, just start the service)
+      # --------------------------------------------------------------
+      - name: Set up Docker
+        run: |
+          sudo systemctl start docker
+
+      # --------------------------------------------------------------
+      # 3️⃣ Pull the Alpine image that contains the build tools
+      # --------------------------------------------------------------
+      - name: Pull Alpine builder image
+        run: |
+          docker pull alpine:latest
+
+      # --------------------------------------------------------------
+      # 4️⃣ Prepare the build environment inside the container
+      # --------------------------------------------------------------
+      - name: Build APK inside Alpine container
+        id: apk-build
+        env:
+          # If you need a signing key, store it as a secret (e.g., APK_SIGNING_KEY)
+          # and export it here. Otherwise the package will be unsigned.
+          SIGNING_KEY: '' #${{ secrets.APK_SIGNING_KEY }}
+        run: |
+          # Create a temporary directory that will be shared with the container
+          mkdir -p ${{ runner.temp }}/apk-workspace
+          cp -r . ${{ runner.temp }}/apk-workspace/
+
+          # Run the Alpine container
+          docker run --rm \
+            -v ${{ runner.temp }}/apk-workspace:/src \
+            -w /src \
+            alpine:latest \
+            sh -eux <<'EOS'
+            # Install the Alpine packaging tools
+            apk add --no-cache alpine-sdk git
+
+            # If you have a private signing key, import it
+            if [ -n "$SIGNING_KEY" ]; then
+              echo "$SIGNING_KEY" > /root/.abuild/key.rsa
+              chmod 600 /root/.abuild/key.rsa
+              # Generate the public key (needed for the .apk index)
+              abuild-keygen -a -i -n
+            fi
+
+            # ----------------------------------------------------------------
+            # 4b️⃣ Build the package
+            # ----------------------------------------------------------------
+            # -a   → build for the host architecture
+            # -r   → clean up after building
+            # -P   → skip the interactive prompts (useful in CI)
+            # -j$(nproc) → parallel build
+            abuild -r -P -j$(nproc)
+
+            # ----------------------------------------------------------------
+            # 4c️⃣ Locate the produced .apk files
+            # ----------------------------------------------------------------
+            # They end up under ~/packages/<arch>/ (e.g., x86_64)
+            find /root/packages -type f -name "*.apk" -exec cp {} /src/ \;
+            EOS
+
+      # --------------------------------------------------------------
+      # 5️⃣ Collect the generated .apk files
+      # --------------------------------------------------------------
+      - name: List generated APKs
+        run: ls -lh *.apk || echo "No APK files found"
+
+      # --------------------------------------------------------------
+      # 6️⃣ Upload the APK(s) as a workflow artifact
+      # --------------------------------------------------------------
+      # - name: Upload APK artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: alpine-apk-${{ github.sha }}
+      #     path: "*.apk"
+      #     retention-days: 30   # keep for 30 days (adjust as needed)
+
+      # --------------------------------------------------------------
+      # 7️⃣ (Optional) Publish to a package repository
+      # --------------------------------------------------------------
+      # If you have an Alpine package repository (e.g., a private S3 bucket or
+      # a self‑hosted repo), you can add a step here that uploads the .apk
+      # files via curl, aws cli, scp, etc.  Example for an S3 bucket:
+      #
+      # - name: Sync to S3
+      #   if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   run: |
+      #     aws s3 sync . s3://my-alpine-repo/apks/ --exclude "*" --include "*.apk"
