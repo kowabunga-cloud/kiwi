@@ -14,13 +14,13 @@ export GO111MODULE = on
 BINDIR = bin
 
 GOLINT = $(BINDIR)/golangci-lint
-GOLINT_VERSION = v2.5.0
+GOLINT_VERSION = v2.8.0
 
 GOVULNCHECK = $(BINDIR)/govulncheck
 GOVULNCHECK_VERSION = v1.1.4
 
 GOSEC = $(BINDIR)/gosec
-GOSEC_VERSION = v2.22.10
+GOSEC_VERSION = v2.22.11
 
 PKGS = $(shell go list ./...)
 PKGS_SHORT = $(shell go list ./... | sed 's%github.com/kowabunga-cloud/kiwi/%%')
