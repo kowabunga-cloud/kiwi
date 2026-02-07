@@ -8,13 +8,43 @@
     [
       "@semantic-release/commit-analyzer",
       {
-        "preset": "conventionalcommits"
+          "preset": "conventionalcommits",
+          "parserOpts": {
+              "headerPattern": "^(?<type>\\w+)(?<breaking>!)?:\\s+(?<subject>.+)$"
+          },
+          "releaseRules": [
+              { "type": "BREAKING CHANGE", "release": "major" },
+              { "type": "feat", "release": "minor" },
+              { "type": "fix",  "release": "patch" },
+              { "type": "perf", "release": "patch" },
+              { "type": "chore", "release": "patch" },
+              { "type": "docs", "release": false },
+              { "type": "doc", "release": false }
+          ]
       }
     ],
     [
       "@semantic-release/release-notes-generator",
       {
-        "preset": "conventionalcommits"
+          "preset": "conventionalcommits",
+          "parserOpts": {
+              "headerPattern": "^(?<type>\\w+)(?<breaking>!)?:\\s+(?<subject>.+)$"
+          },
+          "presetConfig": {
+              "types": [
+                  { "type": "feat", "section": "Features", "hidden": false },
+                  { "type": "fix",  "section": "Bug Fixes", "hidden": false },
+                  { "type": "perf", "section": "Performance Improvements", "hidden": false },
+                  { "type": "chore", "section": "Chores", "hidden": false },
+                  { "type": "docs", "section": "Documentation", "hidden": false },
+                  { "type": "doc", "section": "Documentation", "hidden": false }
+              ]
+          },
+          "writerOpts": {
+              "groupBy": "type",
+              "commitGroupsSort": "title",
+              "commitsSort": ["scope", "subject"]
+          }
       }
     ],
     [
@@ -38,7 +68,7 @@
         "assets": [
           "CHANGELOG.md"
         ],
-        "message": "chore(release): version ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        "message": "chore: version ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ]
   ]
