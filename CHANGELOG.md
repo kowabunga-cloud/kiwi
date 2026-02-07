@@ -1,3 +1,30 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [0.64.1](https://github.com/kowabunga-cloud/kiwi/compare/v0.64.0...v0.64.1) (2026-02-07)
+
+### Bug Fixes
+
+* correct semantic-release integration ([3e4f3c4](https://github.com/kowabunga-cloud/kiwi/commit/3e4f3c4a1a84549fa15b7ebf68649ef82ea7e63b))
+
+### Chores
+
+* add CODEOWNERS ([25413b0](https://github.com/kowabunga-cloud/kiwi/commit/25413b02c816c8dc5fb96ce4941a9585ecab080e))
+* add editorconfig file ([90183a1](https://github.com/kowabunga-cloud/kiwi/commit/90183a19c9ccf75f323ec0f115c7390c526723f2))
+* add semantic-release configuration file ([148b1c0](https://github.com/kowabunga-cloud/kiwi/commit/148b1c080e4e6e5a6641e82e700b32ff7672776d))
+* add semver workflow ([098c6ca](https://github.com/kowabunga-cloud/kiwi/commit/098c6ca7e3445fd17d3b1939736db3af32e997b4))
+* add semver workflow ([45f50b6](https://github.com/kowabunga-cloud/kiwi/commit/45f50b6eba1e8b6ca74bba80fb37a8768ff77dd3))
+* add semver workflow ([09cd385](https://github.com/kowabunga-cloud/kiwi/commit/09cd385a0ac30477b78776bf13d3023bc161e5ac))
+* proper indentation for .releaserc file ([90e05f2](https://github.com/kowabunga-cloud/kiwi/commit/90e05f2ec187d6e88069846920ab4a396c2548f9))
+* remove trailing whitespace ([8557cd6](https://github.com/kowabunga-cloud/kiwi/commit/8557cd64e7736fd2ee05253be7707d88856dd906))
+* updated build dependencies ([4d7bee8](https://github.com/kowabunga-cloud/kiwi/commit/4d7bee8c1f8876fa6a46cdb34168fc1624881790))
+* use pre-commit hooks ([31b72da](https://github.com/kowabunga-cloud/kiwi/commit/31b72da2af1909de91d2e08be3a01e7b8d62d2d6))
+
+### Documentation
+
+* updated README ([bb75a82](https://github.com/kowabunga-cloud/kiwi/commit/bb75a829e37e0de74d911b562924234a20dbdb74))
+
 ## unreleased (yyyy-mm-dd)
 
 ## 0.64.0 (2025-12-30)
