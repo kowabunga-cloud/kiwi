@@ -49,6 +49,18 @@ $ git config --global init.templateDir ~/.git-template
 $ pre-commit init-templatedir ~/.git-template
 ```
 
+## Development
+
+Kiwi development relies on [Semantic Versioning](https://semver.org/) and unscoped [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for development.
+
+Changelog is automatically triggered from commits summary from the following commits types: **feat**, **fix**, **perf**, **chore**, **docs**, e.g.
+
+```
+feat!: upgrade API version         <- will increase version major number at release
+feat: add new super nice feature   <- will increase version minor number at release
+fix: correct bug XYZ               <- will increase version patch number at release
+```
+
 ## Versioning
 
 Versioning generally follows [Semantic Versioning](https://semver.org/).
