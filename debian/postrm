@@ -1,8 +1,1 @@
-#!/bin/bash
-
-if [ $1 = 'remove' ]; then
-  echo 'Removing kowabunga kiwi user...'
-  userdel kiwi -r -f
-fi
-
-exit 0
+../scripts/postrm
