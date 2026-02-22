@@ -22,7 +22,7 @@ This is **Kiwi** Kowabunga agent, for SD-WAN nodes. It provides various network 
 [![time tracker](https://wakatime.com/badge/github/kowabunga-cloud/kiwi.svg)](https://wakatime.com/badge/github/kowabunga-cloud/kiwi)
 ![Code lines](https://sloc.xyz/github/kowabunga-cloud/kiwi/?category=code)
 ![Comments](https://sloc.xyz/github/kowabunga-cloud/kiwi/?category=comments)
-![COCOMO](https://sloc.xyz/github/kowabunga-cloud/kiwiw/?category=cocomo&avg-wage=100000)
+![COCOMO](https://sloc.xyz/github/kowabunga-cloud/kiwi/?category=cocomo&avg-wage=100000)
 
 ## Current Releases
 
