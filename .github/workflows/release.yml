@@ -3,6 +3,11 @@ name: Trigger Release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   release:
     uses: kowabunga-cloud/workflows/.github/workflows/go-release.yml@master
