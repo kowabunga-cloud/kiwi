@@ -61,7 +61,7 @@ build: ; $(info $(M) building Kiwi agent…) @
 		-o $(BINDIR) ./cmd/kiwi
 
 .PHONY: tests
-tests: ; $(info $(M) tes suite…) @
+tests: ; $(info $(M) test suite…) @
 	$Q go test ./... -count=1 -coverprofile=coverage.txt
 
 .PHONY: deb
