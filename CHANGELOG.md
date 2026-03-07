@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.64.2](https://github.com/kowabunga-cloud/kiwi/compare/v0.64.1...v0.64.2) (2026-03-07)
+
+### Bug Fixes
+
+* fix workflow syntax ([da98400](https://github.com/kowabunga-cloud/kiwi/commit/da9840019b17d0e666bd592269dec441af19c3cc))
+
+### Chores
+
+* add workflow to build APK package ([fca7f1c](https://github.com/kowabunga-cloud/kiwi/commit/fca7f1c0c488f9a79b06b2a590e7a0e3151fe416))
+* always use latest versions of build tools ([6fb9c0c](https://github.com/kowabunga-cloud/kiwi/commit/6fb9c0cc7a0a1408e138a718ba0f6481deec65cf))
+* deprecate Alpine image build ([86a1865](https://github.com/kowabunga-cloud/kiwi/commit/86a1865bc428ff4af6f0ed4fb095c0ef70faacfc))
+* easier way to pass DIST variable to debian script ([0b53526](https://github.com/kowabunga-cloud/kiwi/commit/0b53526b68b474e3b1dd77baa148a24033351100))
+* fix Makefile tests directive ([c1928ff](https://github.com/kowabunga-cloud/kiwi/commit/c1928ffe9214a6e71c9431beb68cbc5a8a079cd0))
+* fix rleease permissions requests ([1fe13bc](https://github.com/kowabunga-cloud/kiwi/commit/1fe13bc59c94ccba2deee11b154eb9b2e30e4c98))
+* fix workflow ([5ec14d0](https://github.com/kowabunga-cloud/kiwi/commit/5ec14d0bf6432aeba5d6e372d6d7dc7d45c6d0f3))
+* ignore CI on github workflow files change ([c22a5a6](https://github.com/kowabunga-cloud/kiwi/commit/c22a5a677bb21a631809b264ef3814dea922e77a))
+* implement tests suite ([83f681a](https://github.com/kowabunga-cloud/kiwi/commit/83f681a772269808102b8f77b103238e683e46f1))
+* move debian scripts file in a dedicated scripts/ dir; will be re-shared with Alpine package ([f9c6f81](https://github.com/kowabunga-cloud/kiwi/commit/f9c6f814a689d609a01b41988464ca24ddfa0cc2))
+* move debian scripts file in a dedicated scripts/ dir; will be re-shared with Alpine package ([a38541f](https://github.com/kowabunga-cloud/kiwi/commit/a38541fbdfd38bc78322ffd477548e6248ed14f7))
+* only trigger CI on go files changes ([d331754](https://github.com/kowabunga-cloud/kiwi/commit/d331754c30d0a809a9948e92b59c61d9cfb1f09c))
+* remove useless version argument to deb packaging ([cc7a07a](https://github.com/kowabunga-cloud/kiwi/commit/cc7a07abdef8959b1a63f90b732dbfd247f3778a))
+* require go 1.26 ([a679503](https://github.com/kowabunga-cloud/kiwi/commit/a67950369a0643b6ee67c0b5b00f1fe96bd20a2e))
+* reuse release workflow ([d5ab33e](https://github.com/kowabunga-cloud/kiwi/commit/d5ab33e4b99878b50229e5be756e6dd6e592581b))
+* update build deps ([33cc2bd](https://github.com/kowabunga-cloud/kiwi/commit/33cc2bd2c25086dba9784734eb6681fc7c766a96))
+* update build deps ([385a1e4](https://github.com/kowabunga-cloud/kiwi/commit/385a1e478bd756d779a2488752d8f3b42d2b00c0))
+* update release workflow ([17d9348](https://github.com/kowabunga-cloud/kiwi/commit/17d9348caaed740ac5a50079459549df3913125d))
+* update release workflow ([b94b8e8](https://github.com/kowabunga-cloud/kiwi/commit/b94b8e80c95bcf2515102cc9d5bd0764ee341109))
+* updated github actions ([cfdc6a1](https://github.com/kowabunga-cloud/kiwi/commit/cfdc6a120410a3b8c22b46dc710b549f1dd6f3f9))
+* updated go dependencies ([eb23863](https://github.com/kowabunga-cloud/kiwi/commit/eb238634dad6351038d9bdd784c6b1968d5a9eb4))
+* updated third-party packages ([45a1a0f](https://github.com/kowabunga-cloud/kiwi/commit/45a1a0f6713239d22c31d37c8f64b8173ca09005))
+* use reusable go workflows for ci|sec|vuln ([18e2a85](https://github.com/kowabunga-cloud/kiwi/commit/18e2a85c1974c0e381700af13e3b568b5b9c4a72))
+* use reusable go workflows for ci|sec|vuln ([535a876](https://github.com/kowabunga-cloud/kiwi/commit/535a876fb4c28e6e1771739b1bd9deb887482fa3))
+* use reusable go workflows for ci|sec|vuln ([9169b72](https://github.com/kowabunga-cloud/kiwi/commit/9169b72e27f0e99e4919f4e1a7481386b879c11d))
+* use reusable go workflows for ci|sec|vuln ([413d533](https://github.com/kowabunga-cloud/kiwi/commit/413d533d98b0d75d77c7ab86b4306b1ffdfb5752))
+
+### Documentation
+
+* add note about development guidelines ([5bcabe5](https://github.com/kowabunga-cloud/kiwi/commit/5bcabe597395283ce54018a793519d093a3a9368))
+* fix COCOMO link ([192bdd9](https://github.com/kowabunga-cloud/kiwi/commit/192bdd9afd0e725c68d9bae41f1c7bbeaf78363d))
+* updated logo ([61c9436](https://github.com/kowabunga-cloud/kiwi/commit/61c9436468ef14cc0ee2d295d3d2f2ce6f3ee3af))
+
 ## [0.64.1](https://github.com/kowabunga-cloud/kiwi/compare/v0.64.0...v0.64.1) (2026-02-07)
 
 ### Bug Fixes
