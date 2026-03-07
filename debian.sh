@@ -5,7 +5,7 @@ export PREVIOUS_VERSION=$(git tag --sort=-committerdate | head -2 | awk '{split(
 export CHANGES=$(git log --pretty="- %s" $CURRENT_VERSION...$PREVIOUS_VERSION)
 
 cat > debian/changelog <<EOF
-kowabunga-kiwi-agent (${VERSION}~${DIST}) ${DIST}; urgency=medium
+kowabunga-kiwi-agent (${CURRENT_VERSION}~${DIST}) ${DIST}; urgency=medium
 
 ${CHANGES}
 
