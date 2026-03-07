@@ -9,5 +9,5 @@ on:
 
 jobs:
   sec:
-    uses: kowabunga-cloud/workflows/go-sec.yml@master
+    uses: kowabunga-cloud/workflows/.github/workflows/go-sec.yml@master
     secrets: inherit
