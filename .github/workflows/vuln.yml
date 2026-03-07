@@ -3,9 +3,9 @@ name: Vulnerabilities Check
 on:
   push:
     branches: master
-    paths-ignore:
-      - 'README.md'
-      - '.github/workflows/**'
+    paths:
+      - 'cmd/kiwi/**'
+      - 'internal/kiwi/**'
   pull_request:
     branches: master
   workflow_dispatch:
