@@ -5,9 +5,10 @@ DIST="${DIST:=noble}"
 export CURRENT_VERSION=$(git tag --sort=-committerdate | head -1)
 export PREVIOUS_VERSION=$(git tag --sort=-committerdate | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}')
 export CHANGES=$(git log --pretty="- %s" $CURRENT_VERSION...$PREVIOUS_VERSION)
+export VERSION="$(echo $RELEASE | cut -d 'v' -f 2)~$DIST"
 
 cat > debian/changelog <<EOF
-kowabunga-kiwi-agent (${CURRENT_VERSION}~${DIST}) ${DIST}; urgency=medium
+kowabunga-kiwi-agent (${VERSION}) ${DIST}; urgency=medium
 
 ${CHANGES}
 

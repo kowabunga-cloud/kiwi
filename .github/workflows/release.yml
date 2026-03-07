@@ -16,32 +16,6 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
-    name: Multiarch builds
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-24.04
-            arch: amd64
-            version: noble
-          - os: ubuntu-24.04-arm
-            arch: arm64
-            version: noble
-
-    steps:
-      - name: Install package dependencies
-        run: sudo apt-get install -y debhelper # ${{ inputs.pkgs }}
-      - uses: actions/checkout@v6
-      - name: Setup Go
-        uses: actions/setup-go@v6
-        with:
-          go-version: ${{ env.GO_VERSION }}
-      - name: Build
-        run: make all PROD=1
-      - name: Build Debian package
-        run: make deb DIST=${{ matrix.version }}
-
   release:
     name: Create Release
     needs: build
@@ -83,10 +57,36 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
-  upload-assets:
+  build:
     needs: release
-    # Only run if semantic-release actually published a new version
-    if: needs.release.outputs.new_release_published == 'true'
+    name: Multiarch builds
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            arch: amd64
+            version: noble
+          - os: ubuntu-24.04-arm
+            arch: arm64
+            version: noble
+
+    steps:
+      - name: Install package dependencies
+        run: sudo apt-get install -y debhelper # ${{ inputs.pkgs }}
+      - uses: actions/checkout@v6
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - name: Build
+        run: make all PROD=1
+      - name: Build Debian package
+        run: DIST=${{ matrix.version }} RELEASE=${{ needs.release.outputs.new_release_version }} ./debian.sh
+
+  upload-assets:
+    name: Upload Assets
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
