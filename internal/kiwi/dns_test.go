@@ -367,3 +367,125 @@ func TestDnsServer_ConcurrentAccess(t *testing.T) {
 		<-done
 	}
 }
+
+func TestDnsServer_ServeDNS_NonARecord(t *testing.T) {
+	srv, _ := NewDnsServer(KiwiAgentDnsConfig{
+		Port:      15370,
+		Recursors: []string{"8.8.8.8"},
+	})
+
+	// Start server for forwarding test
+	err := srv.Start()
+	if err != nil {
+		t.Fatalf("Failed to start DNS server: %v", err)
+	}
+	defer func() {
+		_ = srv.Stop()
+	}()
+
+	time.Sleep(100 * time.Millisecond)
+
+	// Query for AAAA record (should be forwarded)
+	m := new(dns.Msg)
+	m.SetQuestion("google.com.", dns.TypeAAAA)
+
+	writer := &mockResponseWriter{}
+	srv.ServeDNS(writer, m)
+
+	if writer.msg == nil {
+		t.Fatal("No response written")
+	}
+
+	// Response should be received from forwarder
+	if !writer.msg.Response {
+		t.Error("Expected a response message")
+	}
+}
+
+func TestDnsServer_ServeDNS_NotInLocalRecords(t *testing.T) {
+	srv, _ := NewDnsServer(KiwiAgentDnsConfig{
+		Port:      15371,
+		Recursors: []string{"8.8.8.8"},
+	})
+
+	// Start server for forwarding test
+	err := srv.Start()
+	if err != nil {
+		t.Fatalf("Failed to start DNS server: %v", err)
+	}
+	defer func() {
+		_ = srv.Stop()
+	}()
+
+	time.Sleep(100 * time.Millisecond)
+
+	// Query for A record not in local records (should be forwarded)
+	m := new(dns.Msg)
+	m.SetQuestion("google.com.", dns.TypeA)
+
+	writer := &mockResponseWriter{}
+	srv.ServeDNS(writer, m)
+
+	if writer.msg == nil {
+		t.Fatal("No response written")
+	}
+
+	// Response should be received from forwarder
+	if !writer.msg.Response {
+		t.Error("Expected a response message")
+	}
+}
+
+func TestDnsServer_ServeDNS_ForwardingFailure(t *testing.T) {
+	// Use invalid recursors to force forwarding failure
+	srv, _ := NewDnsServer(KiwiAgentDnsConfig{
+		Port:      15372,
+		Recursors: []string{"192.0.2.1", "192.0.2.2"}, // TEST-NET addresses, should fail
+	})
+
+	err := srv.Start()
+	if err != nil {
+		t.Fatalf("Failed to start DNS server: %v", err)
+	}
+	defer func() {
+		_ = srv.Stop()
+	}()
+
+	time.Sleep(100 * time.Millisecond)
+
+	// Query for a record not in local records
+	m := new(dns.Msg)
+	m.SetQuestion("nonexistent.example.com.", dns.TypeA)
+
+	writer := &mockResponseWriter{}
+	srv.ServeDNS(writer, m)
+
+	if writer.msg == nil {
+		t.Fatal("No response written")
+	}
+
+	// Should return SERVFAIL due to forwarding failure
+	if writer.msg.Rcode != dns.RcodeServerFailure {
+		t.Errorf("Expected SERVFAIL, got %d", writer.msg.Rcode)
+	}
+}
+
+func TestDnsServer_ServeDNS_InvalidIP(t *testing.T) {
+	srv, _ := NewDnsServer(KiwiAgentDnsConfig{})
+	srv.records["invalid.com."] = "not.a.valid.ip"
+
+	m := new(dns.Msg)
+	m.SetQuestion("invalid.com.", dns.TypeA)
+
+	writer := &mockResponseWriter{}
+	srv.ServeDNS(writer, m)
+
+	if writer.msg == nil {
+		t.Fatal("No response written")
+	}
+
+	// Since the IP is invalid, RR creation should fail and we should get empty answer
+	if len(writer.msg.Answer) != 0 {
+		t.Error("Expected no answers for invalid IP")
+	}
+}

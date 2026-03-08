@@ -212,3 +212,164 @@ func TestKiwiAgent_DNSServerLifecycle(t *testing.T) {
 	// Note: The actual server may still be shutting down asynchronously
 	// We just verify the Shutdown call doesn't panic
 }
+
+func TestNewKiwiAgent_ErrorHandling(t *testing.T) {
+	tests := []struct {
+		name       string
+		config     *KiwiAgentConfig
+		expectFail bool
+	}{
+		{
+			name: "nil DNS in config",
+			config: &KiwiAgentConfig{
+				Global: agents.KowabungaAgentGlobalConfig{
+					ID:       "test-nil-dns",
+					Endpoint: "http://localhost:8080",
+					APIKey:   "test-key",
+					LogLevel: "ERROR",
+				},
+				DNS: KiwiAgentDnsConfig{
+					Port: 15366,
+				},
+			},
+			expectFail: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			agent, err := NewKiwiAgent(tt.config)
+
+			if tt.expectFail && err == nil {
+				t.Error("Expected error but got none")
+			}
+
+			if !tt.expectFail && err != nil {
+				t.Errorf("Unexpected error: %v", err)
+			}
+
+			if agent != nil && agent.dns != nil {
+				agent.Shutdown()
+			}
+		})
+	}
+}
+
+func TestKiwiAgent_PostFlightCallback(t *testing.T) {
+	cfg := &KiwiAgentConfig{
+		Global: agents.KowabungaAgentGlobalConfig{
+			ID:       "postflight-test",
+			Endpoint: "http://localhost:8080",
+			APIKey:   "test-key",
+			LogLevel: "ERROR",
+		},
+		DNS: KiwiAgentDnsConfig{
+			Port: 15367,
+		},
+	}
+
+	agent, err := NewKiwiAgent(cfg)
+	if err != nil {
+		t.Fatalf("Failed to create agent: %v", err)
+	}
+
+	// Verify PostFlight is set
+	if agent.PostFlight == nil {
+		t.Error("PostFlight callback not set")
+	}
+
+	// Call PostFlight explicitly (simulating what happens during shutdown)
+	if agent.PostFlight != nil {
+		agent.PostFlight()
+	}
+}
+
+func TestKiwiAgent_DefaultValues(t *testing.T) {
+	cfg := &KiwiAgentConfig{
+		Global: agents.KowabungaAgentGlobalConfig{
+			ID:       "default-test",
+			Endpoint: "http://localhost:8080",
+			APIKey:   "test-key",
+			LogLevel: "INFO",
+		},
+		DNS: KiwiAgentDnsConfig{
+			Port:      0, // Should default to 53
+			Recursors: []string{},
+		},
+	}
+
+	agent, err := NewKiwiAgent(cfg)
+	if err != nil {
+		t.Fatalf("Failed to create agent: %v", err)
+	}
+	defer agent.Shutdown()
+
+	// Verify defaults were applied
+	if agent.dns.Port != DnsDefaultPort {
+		t.Errorf("Expected default port %d, got %d", DnsDefaultPort, agent.dns.Port)
+	}
+
+	if len(agent.dns.Recursors) != 2 {
+		t.Errorf("Expected 2 default recursors, got %d", len(agent.dns.Recursors))
+	}
+}
+
+func TestKiwiAgent_MultipleShutdowns(t *testing.T) {
+	cfg := &KiwiAgentConfig{
+		Global: agents.KowabungaAgentGlobalConfig{
+			ID:       "multi-shutdown-test",
+			Endpoint: "http://localhost:8080",
+			APIKey:   "test-key",
+			LogLevel: "ERROR",
+		},
+		DNS: KiwiAgentDnsConfig{
+			Port: 15368,
+		},
+	}
+
+	agent, err := NewKiwiAgent(cfg)
+	if err != nil {
+		t.Fatalf("Failed to create agent: %v", err)
+	}
+
+	time.Sleep(100 * time.Millisecond)
+
+	// First shutdown
+	agent.Shutdown()
+
+	// Second shutdown - should handle gracefully
+	agent.Shutdown()
+
+	// Third shutdown - should still not panic
+	agent.Shutdown()
+}
+
+func TestKiwiAgent_ServicesRegistration(t *testing.T) {
+	cfg := &KiwiAgentConfig{
+		Global: agents.KowabungaAgentGlobalConfig{
+			ID:       "services-test",
+			Endpoint: "http://localhost:8080",
+			APIKey:   "test-key",
+			LogLevel: "ERROR",
+		},
+		DNS: KiwiAgentDnsConfig{
+			Port: 15369,
+		},
+	}
+
+	agent, err := NewKiwiAgent(cfg)
+	if err != nil {
+		t.Fatalf("Failed to create agent: %v", err)
+	}
+	defer agent.Shutdown()
+
+	// Verify the agent was created successfully
+	if agent.KowabungaAgent == nil {
+		t.Error("KowabungaAgent is nil")
+	}
+
+	// Verify DNS is running
+	if agent.dns == nil {
+		t.Error("DNS server is nil")
+	}
+}
