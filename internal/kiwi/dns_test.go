@@ -299,6 +299,30 @@ func TestDnsServer_StartStop(t *testing.T) {
 	}
 }
 
+func TestDnsServer_Start_PortAlreadyInUse(t *testing.T) {
+	const port = 15381
+
+	// Occupy the port with the first server.
+	srv1, _ := NewDnsServer(KiwiAgentDnsConfig{Port: port})
+	if err := srv1.Start(); err != nil {
+		t.Fatalf("Failed to start first server: %v", err)
+	}
+	defer func() { _ = srv1.Stop() }()
+
+	time.Sleep(100 * time.Millisecond)
+
+	// Start() always returns nil; the bind failure surfaces inside the goroutine.
+	srv2, _ := NewDnsServer(KiwiAgentDnsConfig{Port: port})
+	if err := srv2.Start(); err != nil {
+		t.Errorf("Start() should return nil even when port is in use, got: %v", err)
+	}
+
+	// Give the goroutine time to attempt ListenAndServe and hit the error branch.
+	time.Sleep(200 * time.Millisecond)
+
+	_ = srv2.Stop()
+}
+
 // mockResponseWriter implements dns.ResponseWriter for testing
 type mockResponseWriter struct {
 	msg *dns.Msg
