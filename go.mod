@@ -1,10 +1,10 @@
 module github.com/kowabunga-cloud/kiwi
 
-go 1.26.1
+go 1.27.0
 
 require (
-	github.com/kowabunga-cloud/common v0.64.1
-	github.com/miekg/dns v1.1.72
+	github.com/kowabunga-cloud/common v0.66.0
+	github.com/miekg/dns v1.1.73
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -20,7 +20,7 @@ require (
 	github.com/godbus/dbus/v5 v5.2.2 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
-	github.com/huandu/xstrings v1.5.0 // indirect
+	github.com/huandu/xstrings v1.6.2 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/kdomanski/iso9660 v0.4.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
@@ -28,16 +28,16 @@ require (
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7 // indirect
-	github.com/sethvargo/go-password v0.3.1 // indirect
+	github.com/sethvargo/go-password v0.4.0 // indirect
 	github.com/tredoe/osutil v1.5.0 // indirect
-	github.com/xhit/go-str2duration/v2 v2.1.0 // indirect
-	golang.org/x/crypto v0.48.0 // indirect
-	golang.org/x/exp/typeparams v0.0.0-20260218203240-3dfff04db8fa // indirect
+	github.com/xhit/go-str2duration/v2 v2.2.0 // indirect
+	golang.org/x/crypto v0.58.0 // indirect
+	golang.org/x/exp/typeparams v0.0.0-20261009195045-ca0d7ba23607 // indirect
 	golang.org/x/lint v0.0.0-20241112194109-818c5a804067 // indirect
-	golang.org/x/mod v0.33.0 // indirect
-	golang.org/x/net v0.51.0 // indirect
-	golang.org/x/sync v0.19.0 // indirect
-	golang.org/x/sys v0.41.0 // indirect
-	golang.org/x/tools v0.42.0 // indirect
-	honnef.co/go/tools v0.7.0 // indirect
+	golang.org/x/mod v0.42.0 // indirect
+	golang.org/x/net v0.61.0 // indirect
+	golang.org/x/sync v0.24.0 // indirect
+	golang.org/x/sys v0.49.0 // indirect
+	golang.org/x/tools v0.51.0 // indirect
+	honnef.co/go/tools v0.8.1 // indirect
 )
