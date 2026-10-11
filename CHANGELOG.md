@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.64.3](https://github.com/kowabunga-cloud/kiwi/compare/v0.64.2...v0.64.3) (2026-10-11)
+
+### Chores
+
+* add claude doc ([7228ce2](https://github.com/kowabunga-cloud/kiwi/commit/7228ce2df77924875d2edc58f3d0ae1f8bfdbf6b))
+* add GitHub Sponsors FUNDING.yml ([ea8b7c7](https://github.com/kowabunga-cloud/kiwi/commit/ea8b7c7f32a0b4b08983915a490a10afdbbc3f78))
+* extended tests coverage ([4638289](https://github.com/kowabunga-cloud/kiwi/commit/4638289216d01b0a5c1f57befa6268ae4cbb5118))
+* extended unit tests ([6236895](https://github.com/kowabunga-cloud/kiwi/commit/6236895980a9fc30af0e4d2a843145c70b7d2cfe))
+* ignore more files ([a9b06f6](https://github.com/kowabunga-cloud/kiwi/commit/a9b06f643eb0aa77a259873bee33515c0f050d29))
+* update dependencies ([10b7579](https://github.com/kowabunga-cloud/kiwi/commit/10b757987b672c0b8826c65ea0e7f10c5813fd77))
+
 ## [0.64.2](https://github.com/kowabunga-cloud/kiwi/compare/v0.64.1...v0.64.2) (2026-03-07)
 
 ### Bug Fixes
