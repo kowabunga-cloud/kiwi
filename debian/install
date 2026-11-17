@@ -1,3 +1,2 @@
 bin/kiwi                                                         /usr/bin
 config/kiwi.yml                                                  /etc/kowabunga
-debian/kowabunga-kiwi-agent.service                              /lib/systemd/system
